@@ -65,6 +65,9 @@ class Zulip extends Adapter
 
             content = msg.content.replace(@mention_regex, '@$1')
             console.log(@mention_regex, content)
+            # workaround for oncall
+            if content.indexOf('@oncall') != -1
+                content = '@' + name ' ' + content
 
             message = new TextMessage author, content, msg.id
             console.log "Received", message
